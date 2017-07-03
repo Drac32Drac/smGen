@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9C839F14-78E1-4F6F-8CDA-5CF3AADC56B0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>stm_cs</RootNamespace>
+    <AssemblyName>stm-cs</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachines\CommandLineArgs.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\CommentRemover.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseDoubleQuotes.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSingleQuotes.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSMDeclaration.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSMFile.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSMGroupDeclaration.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSMGroups.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateMachines\ParseSMState.cs">
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="StateMachines\ParseSMDeclaration.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\ParseSMState.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StateMachines\SMtoCSGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SMtoCSGenerator1.txt</LastGenOutput>
+    </None>
+    <None Include="StateMachines\ParseSMGroups.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\CommentRemover.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\ParseSMGroupDeclaration.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\CommandLineArgs.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="StateMachines\SMtoCSGenerator1.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMtoCSGenerator.tt</DependentUpon>
+    </Content>
+    <None Include="StateMachines\StateMachineParser.dll" />
+    <None Include="StateMachines\ParseSMFile.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\ParseDoubleQuotes.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="StateMachines\ParseSingleQuotes.smgen">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StateMachineParser\StateMachineParser.csproj">
+      <Project>{6572E6C8-07CF-478B-A2DE-E3478ADBBF96}</Project>
+      <Name>StateMachineParser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestMachines\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
