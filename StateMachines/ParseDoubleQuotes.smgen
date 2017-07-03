@@ -1,0 +1,7 @@
+﻿StateMachine ParseDoubleQuotes : char
+{
+	group newline		= { '\n', '\r' }
+	ParseDoubleQuote	: newline = decline, '"' = accept, '\\' = EscapedChar,
+			default = ParseDoubleQuote;
+	EscapedChar			: newline = decline, default = ParseDoubleQuote;
+}

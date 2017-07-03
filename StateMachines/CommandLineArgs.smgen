@@ -1,0 +1,9 @@
+﻿StateMachine CommandLineArgs : char
+{
+	PreArg					: '-' = BeginDirective, default = Arg;
+	Arg						: default = Arg;
+	BeginDirective			: '-' = BeginExtendedDirective, default = Directive;
+	Directive				: default = Directive;
+	BeginExtendedDirective	: default = ExtendedDirective;
+	ExtendedDirective		: default = ExtendedDirective;
+}

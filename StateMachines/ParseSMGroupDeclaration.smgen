@@ -1,0 +1,17 @@
+﻿StateMachine ParseSMGroupDeclaration : char
+{
+	Char0		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'g' = Char1, default = decline;
+	Char1		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'r' = Char2, default = decline;
+	Char2		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'o' = Char3, default = decline;
+	Char3		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'u' = Char4, default = decline;
+	Char4		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'p' = Char5, default = decline;
+	Char5		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			' ' = accept, '\t' = accept, '\r' = accept, '\n' = accept, default = decline;
+	ParseSingleQuotes	: ParseSingleQuotes ? decline : decline;
+	ParseDoubleQuotes	: ParseDoubleQuotes ? decline : decline;
+}

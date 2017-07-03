@@ -1,0 +1,18 @@
+﻿StateMachine CommentRemover : char
+{
+	Parse					: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes,
+			'/' = ParseCommentType, default = Parse;
+	ParseCommentType		: '/' = ParseSingleComment, '*' = ParseMultiComment,
+			default = IllegalCommentType;
+	ParseSingleComment		: '\r' = Parse, '\n' = Parse, default = ParseSingleComment;
+	ParseMultiComment		: '*' = TestEndMultiComment, default = ParseMultiComment;
+	TestEndMultiComment		: '/' = EndComment, default = ParseMultiComment;
+	EndComment				: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes,
+			'/' = ParseCommentType, default = Parse;
+	ParseSingleQuotes		: ParseSingleQuotes ? Parse : IllegalSingleQuotes;
+	ParseDoubleQuotes		: ParseDoubleQuotes ? Parse : IllegalDoubleQuotes;
+		// Error Handling States
+	IllegalCommentType		: default = decline;
+	IllegalSingleQuotes		: default = decline;
+	IllegalDoubleQuotes		: default = decline;
+}

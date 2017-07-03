@@ -1,0 +1,44 @@
+﻿StateMachine ParseSMFile : char
+{
+	group whitespace		= { ' ', '\t', '\r', '\n' }
+	group stateSpecialChars = { '=', ':', '?', ',', ';' }
+	group alphaNumeric		= { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+			'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B',
+			'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+			'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7',
+			'8', '9', '_', '.' }
+	ParseDeclaration		: ParseSMDeclaration ? EndParseDeclaration : ParseDeclaration;
+	EndParseDeclaration		: whitespace = EndParseDeclaration,
+			alphaNumeric = ParseMachineName, default = IllegalDeclarationChar;
+	ParseMachineName		: whitespace = EndParseMachineName, ':' = ParseInputTypeSeparator,
+			alphaNumeric = ParseMachineName, default = IllegalDeclarationChar;
+	EndParseMachineName		: whitespace = EndParseMachineName, ':' = ParseInputTypeSeparator,
+			default = IllegalDeclarationChar;
+	ParseInputTypeSeparator	: whitespace = ParseInputTypeSeparator,
+			 alphaNumeric = ParseInputType, default = IllegalDeclarationChar;
+	ParseInputType			: whitespace = EndParseInputType, '{' = BeginMachine,
+			alphaNumeric = ParseInputType, default = IllegalDeclarationChar;
+	EndParseInputType		: whitespace = EndParseInputType, '{' = BeginMachine,
+			default = IllegalDeclarationChar;
+	BeginMachine			: '}' = accept, whitespace = ParseStates,
+			alphaNumeric = ParseStates, default = IllegalStateIdentifier;
+	ParseStates				: '{' = NestedBrace, '"' = ParseDoubleQuotes,
+			'\'' = ParseSingleQuotes, '}' = accept, whitespace = ParseStates,
+			stateSpecialChars = ParseStates, alphaNumeric = ParseStates,
+			default = IllegalStateContent;
+		// Quotes error handling taken care of in prior pass
+	ParseSingleQuotes		: ParseSingleQuotes ? ParseStates : decline;
+	ParseDoubleQuotes		: ParseDoubleQuotes ? ParseStates : decline;
+	NestedBrace				: '}' = ParseStates, '\'' = NestedBraceSingeQuotes,
+			'"' = NestedBraceDoubleQuotes, whitespace = NestedBrace,
+			stateSpecialChars = NestedBrace, alphaNumeric = NestedBrace,
+			default = IllegalNestedStateContent;
+		// Quotes error handling taken care of in prior pass
+	NestedBraceSingeQuotes	: ParseSingleQuotes ? NestedBrace : decline;
+	NestedBraceDoubleQuotes : ParseDoubleQuotes ? NestedBrace : decline;
+		// Error Handling States
+	IllegalDeclarationChar		: default = decline;
+	IllegalStateIdentifier		: default = decline;
+	IllegalStateContent			: default = decline;
+	IllegalNestedStateContent	: default = decline;
+}

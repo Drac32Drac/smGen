@@ -1,0 +1,29 @@
+﻿StateMachine ParseSMDeclaration : char
+{
+	Char1		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'S' = Char2, default = decline;
+	Char2		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			't' = Char3, default = decline;
+	Char3		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'a' = Char4, default = decline;
+	Char4		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			't' = Char5, default = decline;
+	Char5		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'e' = Char6, default = decline;
+	Char6		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'M' = Char7, default = decline;
+	Char7		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'a' = Char8, default = decline;
+	Char8		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'c' = Char9, default = decline;
+	Char9		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'h' = Char10, default = decline;
+	Char10		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'i' = Char11, default = decline;
+	Char11		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'n' = Char12, default = decline;
+	Char12		: '\'' = ParseSingleQuotes, '"' = ParseDoubleQuotes, 
+			'e' = accept, default = decline;
+	ParseSingleQuotes	: ParseSingleQuotes ? decline : decline;
+	ParseDoubleQuotes	: ParseDoubleQuotes ? decline : decline;
+}

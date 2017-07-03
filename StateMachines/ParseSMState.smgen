@@ -1,0 +1,65 @@
+﻿StateMachine ParseSMState : char
+{
+	group whitespace		= { ' ', '\t', '\n', '\r' }
+	group alphaNumeric		= { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+			'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B',
+			'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+			'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7',
+			'8', '9', '_', '.' }
+
+	PreStateName			: whitespace = PreStateName, '}' = accept,
+			alphaNumeric = StateName, default = IllegalStateNameChar;
+	StateName				: whitespace = PostStateName, ':' = Separator,
+			alphaNumeric = StateName, default = IllegalStateNameChar;
+	PostStateName			: whitespace = PostStateName, ':' = Separator,
+			alphaNumeric = MissingMainColon, default = IllegalStateNameChar;
+	Separator				: whitespace = Separator, '\'' = ParseSingleQuotes,
+			'"' = ParseDoubleQuotes, alphaNumeric = CommandOrNest,
+			default = IllegalCommandChar;
+	CommandOrNest			: whitespace = PostCommandOrNest, '=' = PreNextState,
+			'?' = PostNestedMachine, alphaNumeric = CommandOrNest,
+			default = IllegalCommandChar;
+	PostCommandOrNest		: whitespace = PostCommandOrNest, '=' = PreNextState,
+			'?' = PostNestedMachine, alphaNumeric = MissingEqualsOrTernary,
+			'\'' = MissingEqualsOrTernary, '"' = MissingEqualsOrTernary, 
+			default = IllegalCommandChar;
+	PostNestedMachine		: whitespace = PostNestedMachine,
+			alphaNumeric = NestedMachineAccept, default = IllegalNextStateChar;
+	NestedMachineAccept		: whitespace = PostNestedMachineAccept,
+			':' = PreNestedMachineDecline, alphaNumeric = NestedMachineAccept,
+			default = IllegalNextStateChar;
+	PostNestedMachineAccept	: whitespace = PostNestedMachineAccept,
+			':' = PreNestedMachineDecline, alphaNumeric = MissingNestColon,
+			default = IllegalNextStateChar;
+	PreNestedMachineDecline	: whitespace = PreNestedMachineDecline,
+			alphaNumeric = NestedMachineDecline, default = IllegalNextStateChar;
+	NestedMachineDecline	: whitespace = PostNestedMachineDecline,
+			';' = PreStateName, alphaNumeric = NestedMachineDecline,
+			default = IllegalNextStateChar;
+	PostNestedMachineDecline	: whitespace = PostNestedMachineDecline,
+			';' = PreStateName, default = MissingNestSemicolon;
+	PreCommand				: whitespace = PreCommand, '\'' = ParseSingleQuotes,
+			 '"' = ParseDoubleQuotes, alphaNumeric = Command, default = IllegalCommandChar;
+		// Quotes error handling taken care of in prior pass
+	ParseSingleQuotes		: ParseSingleQuotes ? PostCommand : decline;
+	ParseDoubleQuotes		: ParseDoubleQuotes ? PostCommand : decline;
+	Command					: whitespace = PostCommand, '=' = PreNextState,
+			alphaNumeric = Command, default = IllegalCommandChar;
+	PostCommand				: whitespace = PostCommand, '=' = PreNextState,
+			alphaNumeric = MissingEqualsOrTernary, default = IllegalCommandChar;
+	PreNextState			: whitespace = PreNextState, alphaNumeric = NextState,
+			default = IllegalNextStateChar;
+	NextState				: whitespace = PostNextState, ',' = PreCommand,
+			';' = PreStateName, alphaNumeric = NextState, default = IllegalNextStateChar;
+	PostNextState			: whitespace = PostNextState, ',' = PreCommand, ';' = PreStateName,
+			alphaNumeric = MissingCommaOrSemicolon, default = IllegalNextStateChar;
+		// Error Handling States
+	IllegalStateNameChar	: default = decline;
+	IllegalCommandChar		: default = decline;
+	IllegalNextStateChar	: default = decline;
+	MissingMainColon		: default = decline;
+	MissingEqualsOrTernary	: default = decline;
+	MissingNestColon		: default = decline;
+	MissingNestSemicolon	: default = decline;
+	MissingCommaOrSemicolon	: default = decline;
+}
