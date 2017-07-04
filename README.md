@@ -1,7 +1,7 @@
 # smGen
 State Machine Code Generator
 
-smGen is a command line code generator to generate state machines from source files using a custom compact syntax.
+smGen is a command line code generator to generate state machines from source files using a custom compact syntax.  This project is written in C# against the .Net framework 4.0.  The project is a Visual Studio 2010 project.
 
 ```
 @"State Machine Parser command listing
