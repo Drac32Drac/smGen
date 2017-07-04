@@ -120,13 +120,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StateMachineParser\StateMachineParser.csproj">
+    <Folder Include="TestMachines\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="StateMachineParser\StateMachineParser.csproj">
       <Project>{6572E6C8-07CF-478B-A2DE-E3478ADBBF96}</Project>
       <Name>StateMachineParser</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestMachines\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

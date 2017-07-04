@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6572E6C8-07CF-478B-A2DE-E3478ADBBF96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StateMachineParser</RootNamespace>
+    <AssemblyName>StateMachineParser</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BackupMachines\CommandLineArgs.cs" />
+    <Compile Include="CodeGeneratorCS.cs" />
+    <Compile Include="CodeGeneratorJava.cs" />
+    <Compile Include="ParseErrorException.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="BackupMachines\CommentRemover.cs" />
+    <None Include="BackupMachines\ParseDoubleQuotes.cs" />
+    <None Include="BackupMachines\ParseSingleQuotes.cs" />
+    <None Include="BackupMachines\ParseSMDeclaration.cs" />
+    <None Include="BackupMachines\ParseSMFile.cs" />
+    <None Include="BackupMachines\ParseSMGroupDeclaration.cs" />
+    <None Include="BackupMachines\ParseSMGroups.cs" />
+    <None Include="BackupMachines\ParseSMState.cs" />
+    <Compile Include="StateMachines\CommandLineArgs.cs" />
+    <Compile Include="StateMachines\CommentRemover.cs" />
+    <Compile Include="StateMachines\ParseDoubleQuotes.cs" />
+    <Compile Include="StateMachines\ParseSingleQuotes.cs" />
+    <Compile Include="StateMachines\ParseSMDeclaration.cs" />
+    <Compile Include="StateMachines\ParseSMFile.cs" />
+    <Compile Include="StateMachines\ParseSMGroupDeclaration.cs" />
+    <Compile Include="StateMachines\ParseSMGroups.cs" />
+    <Compile Include="StateMachines\ParseSMState.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smGen", "smGen.csproj", "{9C839F14-78E1-4F6F-8CDA-5CF3AADC56B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineParser", "..\StateMachineParser\StateMachineParser.csproj", "{6572E6C8-07CF-478B-A2DE-E3478ADBBF96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineParser", "StateMachineParser\StateMachineParser.csproj", "{6572E6C8-07CF-478B-A2DE-E3478ADBBF96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
